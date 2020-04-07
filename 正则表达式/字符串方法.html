@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        字符串方法使用正则表达式
+     -->
+    <script type="text/javascript">
+        //macth方法 -- 字符串方法
+        var str ="22hhh33jhyg33gfyf33joj3333"
+        var reg = /33/g;    //匹配全局
+        console.log(str.match(reg));
+        /*
+            macth方法:
+                非全局:获取第1个符合条件的数组
+                全局(g):获取所有符合条件的数组
+        */
+
+        //search方法
+        var str = "22ABCDabc33ABCD33ABCD3333"
+        var reg = /abc/;
+        console.log(str.search(reg));
+        /*
+            search方法:
+                匹配成功返回第一个结果的下标
+                匹配失败返回-1
+        */
+
+        //replace
+        var str = "22ABCDabc33ABCD33ABCD3333"
+        var reg = /33/g;
+        console.log(str.replace(reg,'5556'));
+        console.log(str.replace(reg,function(){
+            return 5*5;
+        }));
+
+        //replace(匹配规则,替换内容)
+    </script>
+</body>
+</html>

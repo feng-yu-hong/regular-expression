@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        匹配规则
+        
+        正则表达式有两种基本字符类型组成
+
+        1.原义文本字符  a = a ; 1 = 1  /abc/
+        2.元字符       有特殊含义的非字母字符
+
+        * + ？ $ .
+        \t 水平制表符
+        \v 垂直制表符
+        \n 换行符
+        \r 回车符
+        \0 空字符
+        \s 空白字符
+        \f 换页符
+     -->
+    <script type="text/javascript">
+        //元字符 - 点字符
+        var str = "abc"
+        var reg = /a.c/;
+        console.log(str.match(reg));
+
+        //元字符 - 位置字符
+        var str = "aaa bbb ccc"
+        var reg = /^aaa/;
+        console.log(str.match(reg));
+
+        var str = "aaa bbb ccc"
+        var reg = /ccc$/;
+        console.log(str.match(reg));
+
+        var str = "abc"
+        var reg = /^abc$/;
+        console.log(str.match(reg));
+
+        //元字符 - 竖线字符
+        var str = "22334455"
+        var reg = /22|33/;
+        console.log(str.match(reg));
+
+
+        /*
+            .:代表任意字符
+
+            ^:代表开头必须是***
+
+            $:代表结尾必须是***
+
+            |:代表或
+        */
+
+
+        /*
+        字符类
+        我们可以用简单的元字符[]，来构建一个简单的类。
+        表达式[abc]，把字符a|b|c归为一类，表达式可以匹配其中字符
+        字符类取反
+        使用元字符^创建反向类表示不是字符a|b|c    
+        */
+
+        //元字符 - 脱字符(^)
+        var str = "aaab234bbccc"
+        var reg = /[^abc]/g;
+        console.log(reg.test(str));
+
+        var str = "aasas12345sdad"
+        var reg = /[1]/g;
+        console.log(reg.test(str));
+
+        //元字符 - 连接符(-)
+        var str = "131232423563465754"
+        var reg = /[^0-9]/g;
+        console.log(reg.test(str));
+
+        //匹配字符
+        var str = "1233sfas1231gaegagg1231adgare"
+        var reg = /[a-z]/gi; //等价于reg2
+        var reg2 = /[a-zA-Z_0-9]/g;
+        console.log(str.match(reg2));
+
+        //匹配汉字
+        var str = "ewffeef23423火锅好吃"
+        var reg = /[\u4e00-\u9fa5]+/;
+        console.log(str.match(reg));
+
+        /*
+            ^abc:在调用test()方法时，会将字符串中的所有abc干掉，
+                 如果字符串仍然有内容，那么返回true，否则返回flase
+            
+            -   :操作范围，例如0~9表示 0 1 2 3 4 5 6 ..9
+
+            匹配汉字:使用unicode编码格式
+        */
+
+
+        /*
+            量词：
+            {n}         :出现n次        
+            {n,m}       :出现n次到m次   
+            {n,}        :至少出现n次
+            ?           :出现0次或一次(最多出现一次)
+            +           :出现一次或多次(最少出现一次)
+            *           :出现零次或多次(任意次) 
+        */
+
+        //重复类
+        var str = "211111163455"
+        var reg = /1{6}/    //要刚好6次,否则返回null
+        console.log(str.match(reg));
+
+        var str = "20000063455"
+        var reg = /0{2,}/    //至少两次多了没关系直到不重复为止
+        console.log(str.match(reg));
+
+        var str = "2111155"
+        var reg = /1{1,2}/    //最少一个,最多两个
+        console.log(str.match(reg));
+
+        //?
+        var str = "11155"
+        var reg = /1?/g    
+        console.log(str.match(reg));
+        //?问号等同于{0,1}
+
+        //*
+        var str = "205"
+        var reg = /1*/   
+        console.log(reg.test(str));
+        //*号等同于{0，n}
+
+        //*
+        var str = "206"
+        var reg = /1+/   
+        console.log(reg.test(str));
+        //+号等同于{1，n} 
+
+        /*
+
+            //预定义类
+            
+            \d = [0-9] 匹配所有的数字       digital
+
+            \D = [^0-9] 非数字
+
+            \w = [a-zA-Z]匹配所有的字母     word
+
+            \W = [^a-zA-Z] 非字母
+
+            \s = [\n\t]空白符               space
+
+            \S = [^\n\t] 非空白符
+        */
+
+        console.log(/\d/.test("21314325243624"));
+        console.log(/\D/.test("21314325243624"));
+
+        console.log(/\w/.test("saadwfae34___3624"));//字母数字下划线
+        console.log(/\W/.test("saadwfae34___3624"));
+
+        console.log(/\s\w/.exec("hello world"));
+        console.log(/\S\w/.exec("hello world"));
+
+
+        /*
+            补充：
+                m   &   () 
+        */
+
+        var str = "hello world\n";
+        var reg = /world$/;
+        var reg2 = /world$/m;       //m为多行 ， 多行检测结尾中是否为world
+        console.log(reg2.test(str));
+
+        // 特殊字符
+        console.log(/\n/.exec('hello world\n'));
+
+        // 组匹配   ()号
+        console.log(/abc+/.exec("abcccc1234"));
+        console.log(/(abc)+/.exec("abcccc1234"));
+
+        //单词边界  \b
+        console.log(/ is/.exec("this is a good boy!"))
+    </script>
+</body>
+</html>
